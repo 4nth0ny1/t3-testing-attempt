@@ -39,7 +39,7 @@ export default createJestConfig(config)
 import '@testing-library/jest-dom/extend-expect'
 ```
 
-this created an error ...
+this created an error ... \*\*\* fixed by adding a .eslintignore file and adding jest.setup.js to it.
 
 ```
 Parsing error: ESLint was configured to run on `<tsconfigRootDir>/jest.setup.js` using `parserOptions.project`: /users/anthonycatullo/code/t3/t3-testing-attempt/tsconfig.json
