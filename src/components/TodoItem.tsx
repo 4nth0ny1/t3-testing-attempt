@@ -1,12 +1,12 @@
 import { useState } from "react";
+import type { Todo } from "../types";
 
 interface TodoProps {
-  id: string;
-  content: string;
-  done: boolean;
+  todo: Todo;
 }
 
-export default function TodoItem({ id, content, done }: TodoProps) {
+export function TodoItem({ todo }: TodoProps) {
+  const { content, done } = todo;
   const [checked, setChecked] = useState(done);
   return (
     <div className="flex flex-row gap-4">
