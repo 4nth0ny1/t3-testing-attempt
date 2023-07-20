@@ -13,7 +13,9 @@ export default function Home() {
       </Head>
       <main className="flex min-h-screen flex-col items-center">
         <AuthShowcase />
-        <h1 className="text-2xl">Home Page</h1>
+        <h1 data-testid="website-title" className="text-2xl">
+          Home Page
+        </h1>
         <TodoList />
       </main>
     </>

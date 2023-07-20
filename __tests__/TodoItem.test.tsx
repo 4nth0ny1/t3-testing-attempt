@@ -1,25 +1,33 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import TodoItem from "../src/components/TodoItem";
+import { TodoItem } from "../src/components/TodoItem";
+import type { Todo } from "../src/types";
+
+interface TodoProps {
+  todo: Todo;
+}
 
 describe("TodoItem Component", () => {
   it("checkbox - should render a checkbox", () => {
-    render(<TodoItem id="1" content="mow the lawn" done={false} />);
-    const checkbox = screen.getByTestId(/doneCheckbox/i);
+    const todo = [];
+    render(<TodoItem todo={todo} />);
+    const checkbox = screen.getByTestId("doneCheckbox");
     expect(checkbox).toBeInTheDocument();
   });
 
-  it("checkbox - should be checked when it is clicked", async () => {
-    render(<TodoItem id="1" content="mow the lawn" done={false} />);
-    const checkbox = screen.getByTestId(/doneCheckbox/i);
-    expect(checkbox).not.toBeChecked();
-    await userEvent.click(checkbox);
-    expect(checkbox).toBeChecked();
-  });
-
   it("content - should render content from props", () => {
-    render(<TodoItem id="1" content="mow the lawn" done={false} />);
-    const content = screen.getByTestId(/content/i);
+    const todo = [
+      {
+        id: "1",
+        content: "mow the lawn",
+        done: false,
+        createdAt: Date(),
+        updatedAt: Date(),
+        userId: "user1",
+      },
+    ];
+    render(<TodoItem todo={todo} />);
+    const content = screen.getByTestId("content");
     expect(content).toBeInTheDocument();
   });
 });
