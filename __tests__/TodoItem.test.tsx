@@ -30,4 +30,36 @@ describe("TodoItem Component", () => {
     const content = screen.getByTestId("content");
     expect(content).toBeInTheDocument();
   });
+
+  it("editButton - should render edit button", () => {
+    const todo = [
+      {
+        id: "1",
+        content: "mow the lawn",
+        done: false,
+        createdAt: Date(),
+        updatedAt: Date(),
+        userId: "user1",
+      },
+    ];
+    render(<TodoItem todo={todo} />);
+    const editButton = screen.getByTestId("editButton");
+    expect(editButton).toBeInTheDocument();
+  });
+
+  it("deleteButton - should render delete button", () => {
+    const todo = [
+      {
+        id: "1",
+        content: "mow the lawn",
+        done: false,
+        createdAt: Date(),
+        updatedAt: Date(),
+        userId: "user1",
+      },
+    ];
+    render(<TodoItem todo={todo} />);
+    const deleteButton = screen.getByTestId("deleteButton");
+    expect(deleteButton).toBeInTheDocument();
+  });
 });
