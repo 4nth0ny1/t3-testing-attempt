@@ -62,4 +62,26 @@ describe("TodoItem Component", () => {
     const deleteButton = screen.getByTestId("deleteButton");
     expect(deleteButton).toBeInTheDocument();
   });
+
+  xit("deleteMutation - clicking deleteButton should delete todo from page", async () => {
+    const todo = [
+      {
+        id: "1",
+        content: "mow the lawn",
+        done: false,
+        createdAt: Date(),
+        updatedAt: Date(),
+        userId: "user1",
+      },
+    ];
+
+    const deleteMutation = jest.fn();
+
+    render(<TodoItem todo={todo} />);
+    const deleteButton = screen.getByTestId("deleteButton");
+
+    await userEvent.click(deleteButton);
+
+    expect(deleteMutation).toHaveBeenCalled();
+  });
 });

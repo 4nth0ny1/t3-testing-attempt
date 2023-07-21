@@ -12,7 +12,15 @@ export const todoRouter = createTRPCRouter({
     return ctx.prisma.todo.findMany();
   }),
 
-
+  delete: protectedProcedure
+  .input(z.string())
+  .mutation(({ ctx, input}) => {
+    return ctx.prisma.todo.delete({
+      where: {
+        id: input
+      }
+    })
+  }), 
 
 
 });

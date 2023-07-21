@@ -8,7 +8,7 @@ export function TodoList() {
   if (isError) return <div>Something went wrong...</div>;
 
   return (
-    <div className="w-1/2 p-10">
+    <div data-testid="TodoList" className="w-1/2 p-10">
       {todos.length ? (
         todos?.map((todo) => {
           return <TodoItem key={todo.id} todo={todo} />;
