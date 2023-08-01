@@ -28,12 +28,12 @@ export function TodoItem({ todo }: TodoProps) {
       />
       <p data-testid="content">{content}</p>
       <div className="flex flex-row gap-4">
-        <button
+        {/* <button
           data-testid="editButton"
           className="rounded-xl bg-yellow-400 px-4"
         >
           edit
-        </button>
+        </button> */}
         <button
           onClick={() => deleteMutation(id)}
           data-testid="deleteButton"
