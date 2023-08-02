@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { TodoItem } from "../src/components/TodoItem";
 import type { Todo } from "../src/types";
+import { TRPCWrapper } from "~/utils/wrappers/trpcwrapper";
 
 interface TodoProps {
   todo: Todo;
@@ -10,7 +11,7 @@ interface TodoProps {
 describe("TodoItem Component", () => {
   it("checkbox - should render a checkbox", () => {
     const todo = [];
-    render(<TodoItem todo={todo} />);
+    render(<TodoItem todo={todo} />, { TRPCWrapper });
     const checkbox = screen.getByTestId("doneCheckbox");
     expect(checkbox).toBeInTheDocument();
   });
