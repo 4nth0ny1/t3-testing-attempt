@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { TodoItem } from "../src/components/TodoItem";
 import type { Todo } from "../src/types";
@@ -36,11 +36,7 @@ describe("TodoItem Component", () => {
     expect(deleteButton).toBeInTheDocument();
   });
 
-  xit("deleteMutation - clicking deleteButton should delete todo from page", async () => {
-    // should I use mock service worker?
-
-    const deleteMutation = jest.fn();
-
+  it("deleteMutation - clicking deleteButton should delete todo from page", async () => {
     render(<TodoItem id="1" done={false} content="mow the lawn" />, {
       wrapper: TRPCWrapper,
     });
@@ -48,9 +44,12 @@ describe("TodoItem Component", () => {
     expect(content).toBeInTheDocument();
 
     const deleteButton = screen.getByTestId("deleteButton");
+    expect(deleteButton).toBeInTheDocument();
 
-    expect(deleteMutation).toHaveBeenCalledTimes(0);
     await userEvent.click(deleteButton);
-    expect(deleteMutation).toHaveBeenCalledTimes(1);
+
+    await waitFor(() => {
+      expect(screen.getByText("mow the lawn")).not.toBeInTheDocument();
+    });
   });
 });
