@@ -5,84 +5,52 @@ import type { Todo } from "../src/types";
 import { TRPCWrapper } from "~/utils/wrappers/trpcwrapper";
 
 interface TodoProps {
-  todo: Todo;
+  id: string;
+  content: string;
+  done: boolean;
 }
 
 describe("TodoItem Component", () => {
   it("checkbox - should render a checkbox", () => {
-    const todo = [];
-    render(<TodoItem todo={todo} />, { wrapper: TRPCWrapper });
+    render(<TodoItem id="1" done={false} content="mow the lawn" />, {
+      wrapper: TRPCWrapper,
+    });
     const checkbox = screen.getByTestId("doneCheckbox");
     expect(checkbox).toBeInTheDocument();
   });
 
-  xit("content - should render content from props", () => {
-    const todo = [
-      {
-        id: "1",
-        content: "mow the lawn",
-        done: false,
-        createdAt: Date(),
-        updatedAt: Date(),
-        userId: "user1",
-      },
-    ];
-    render(<TodoItem todo={todo} />);
-    const content = screen.getByTestId("content");
+  it("content - should render content from props", () => {
+    render(<TodoItem id="1" done={false} content="mow the lawn" />, {
+      wrapper: TRPCWrapper,
+    });
+
+    const content = screen.getByText("mow the lawn");
     expect(content).toBeInTheDocument();
   });
 
-  xit("editButton - should render edit button", () => {
-    const todo = [
-      {
-        id: "1",
-        content: "mow the lawn",
-        done: false,
-        createdAt: Date(),
-        updatedAt: Date(),
-        userId: "user1",
-      },
-    ];
-    render(<TodoItem todo={todo} />);
-    const editButton = screen.getByTestId("editButton");
-    expect(editButton).toBeInTheDocument();
-  });
-
-  xit("deleteButton - should render delete button", () => {
-    const todo = [
-      {
-        id: "1",
-        content: "mow the lawn",
-        done: false,
-        createdAt: Date(),
-        updatedAt: Date(),
-        userId: "user1",
-      },
-    ];
-    render(<TodoItem todo={todo} />);
+  it("deleteButton - should render delete button", () => {
+    render(<TodoItem id="1" done={false} content="mow the lawn" />, {
+      wrapper: TRPCWrapper,
+    });
     const deleteButton = screen.getByTestId("deleteButton");
     expect(deleteButton).toBeInTheDocument();
   });
 
   xit("deleteMutation - clicking deleteButton should delete todo from page", async () => {
-    const todo = [
-      {
-        id: "1",
-        content: "mow the lawn",
-        done: false,
-        createdAt: Date(),
-        updatedAt: Date(),
-        userId: "user1",
-      },
-    ];
+    // should I use mock service worker?
 
     const deleteMutation = jest.fn();
 
-    render(<TodoItem todo={todo} />);
+    render(<TodoItem id="1" done={false} content="mow the lawn" />, {
+      wrapper: TRPCWrapper,
+    });
+    const content = screen.getByText("mow the lawn");
+    expect(content).toBeInTheDocument();
+
     const deleteButton = screen.getByTestId("deleteButton");
 
+    expect(deleteMutation).toHaveBeenCalledTimes(0);
     await userEvent.click(deleteButton);
-
-    expect(deleteMutation).toHaveBeenCalled();
+    expect(deleteMutation).toHaveBeenCalledTimes(1);
   });
 });

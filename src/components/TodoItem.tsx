@@ -3,11 +3,12 @@ import type { Todo } from "../types";
 import { api } from "../utils/api";
 
 interface TodoProps {
-  todo: Todo;
+  id: string;
+  content: string;
+  done: boolean;
 }
 
-export function TodoItem({ todo }: TodoProps) {
-  const { id, content, done } = todo;
+export function TodoItem({ id, content, done }: TodoProps) {
   const [checked, setChecked] = useState(done);
 
   const ctx = api.useContext();

@@ -13,7 +13,14 @@ export function TodoList() {
       <TodoForm />
       {todos.length ? (
         todos?.map((todo) => {
-          return <TodoItem key={todo.id} todo={todo} />;
+          return (
+            <TodoItem
+              key={todo.id}
+              id={todo.id}
+              content={todo.content}
+              done={todo.done}
+            />
+          );
         })
       ) : (
         <div className="py-4 text-center text-xl">Create your first todo</div>
