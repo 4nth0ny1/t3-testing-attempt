@@ -4,6 +4,8 @@ import { TodoItem } from "../src/components/TodoItem";
 import { TRPCWrapper } from "~/utils/wrappers/trpcwrapper";
 const func = jest.fn();
 
+// test
+
 const setup = () => {
   render(
     <TodoItem id="1" done={false} content="mow the lawn" onDelete={func} />,
