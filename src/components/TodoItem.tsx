@@ -6,18 +6,11 @@ interface TodoProps {
   id: string;
   content: string;
   done: boolean;
+  onDelete: (id: string) => void;
 }
 
-export function TodoItem({ id, content, done }: TodoProps) {
+export function TodoItem({ id, content, done, onDelete }: TodoProps) {
   const [checked, setChecked] = useState(done);
-
-  const ctx = api.useContext();
-
-  const { mutate: deleteMutation } = api.todo.delete.useMutation({
-    onSettled: async () => {
-      await ctx.todo.getAll.invalidate();
-    },
-  });
 
   return (
     <div className="flex flex-row justify-between gap-4 pb-2">
@@ -29,13 +22,13 @@ export function TodoItem({ id, content, done }: TodoProps) {
       />
       <p data-testid="content">{content}</p>
       <div className="flex flex-row gap-4">
-        <button
-          onClick={() => deleteMutation(id)}
+        <a
+          onClick={() => onDelete(id)}
           data-testid="deleteButton"
-          className="rounded-xl bg-red-400 px-4"
+          className="cursor-pointer rounded-xl bg-red-400 px-4"
         >
           del
-        </button>
+        </a>
       </div>
     </div>
   );
