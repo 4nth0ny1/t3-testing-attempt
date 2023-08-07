@@ -15,6 +15,7 @@ export function TodoForm() {
 
   return (
     <form
+      data-testid="TodoForm"
       className="mb-4 flex w-full flex-row justify-between border-b border-slate-900 pb-2"
       onSubmit={(e) => {
         e.preventDefault();

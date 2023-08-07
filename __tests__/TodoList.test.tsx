@@ -1,11 +1,17 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { render, screen, waitFor } from "@testing-library/react";
 import { TodoList } from "../src/components/TodoList";
+import { TRPCWrapper } from "~/utils/wrappers/trpcwrapper";
+
+const setup = () => {
+  render(<TodoList />, {
+    wrapper: TRPCWrapper,
+  });
+};
 
 describe("TodoList Component", () => {
-  it("TodoList - should mount", () => {
-    render(<TodoList />);
-    const todoList = screen.getByTestId(/TodoList/i);
-    expect(todoList).toBeInTheDocument();
+  it("TodoList - should render a TodoForm Component", async () => {
+    setup();
+
+    expect(screen.getByText(/hello/i)).toBeInTheDocument();
   });
 });
