@@ -13,7 +13,10 @@ export function TodoItem({ id, content, done, onDelete }: TodoProps) {
   const [checked, setChecked] = useState(done);
 
   return (
-    <div className="flex flex-row justify-between gap-4 pb-2">
+    <div
+      data-testid="TodoItem"
+      className="flex flex-row justify-between gap-4 pb-2"
+    >
       <input
         type="checkbox"
         checked={checked}

@@ -1,8 +1,9 @@
+import { useGetAllTodos } from "~/hooks/useGetAllTodos";
 import { api } from "../utils/api";
 import { TodoItem } from "./TodoItem";
 
 export function TodoList() {
-  const { data: todos, isLoading, isError } = api.todo.getAll.useQuery();
+  const { data: todos, isLoading, isError } = useGetAllTodos();
 
   const ctx = api.useContext();
 
@@ -11,9 +12,6 @@ export function TodoList() {
       await ctx.todo.getAll.invalidate();
     },
   });
-
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Something went wrong...</div>;
 
   return (
     <div data-testid="TodoList" className="w-1/2 p-10">
@@ -30,7 +28,9 @@ export function TodoList() {
           );
         })
       ) : (
-        <div className="py-4 text-center text-xl">Create your first todo</div>
+        <div data-testid="helpful" className="py-4 text-center text-xl">
+          Create your first todo
+        </div>
       )}
     </div>
   );
