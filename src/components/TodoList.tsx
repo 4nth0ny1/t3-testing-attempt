@@ -1,6 +1,5 @@
 import { api } from "../utils/api";
 import { TodoItem } from "./TodoItem";
-import { TodoForm } from "./TodoForm";
 
 export function TodoList() {
   const { data: todos, isLoading, isError } = api.todo.getAll.useQuery();
@@ -18,8 +17,6 @@ export function TodoList() {
 
   return (
     <div data-testid="TodoList" className="w-1/2 p-10">
-      <h1>hello</h1>
-      <TodoForm />
       {todos.length ? (
         todos?.map((todo) => {
           return (

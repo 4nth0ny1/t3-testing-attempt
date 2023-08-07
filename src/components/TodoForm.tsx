@@ -1,26 +1,16 @@
 import { api } from "../utils/api";
-import { useState } from "react";
 
-export function TodoForm() {
-  const [content, setContent] = useState("");
+type SubmitProps = {
+  setContent: (content: string) => void;
+  content: string;
+  formSubmission: (content: string) => void;
+};
 
-  const ctx = api.useContext();
-
-  const { mutate } = api.todo.create.useMutation({
-    onSettled: async () => {
-      setContent("");
-      await ctx.todo.getAll.invalidate();
-    },
-  });
-
+export function TodoForm({ formSubmission, setContent, content }: SubmitProps) {
   return (
-    <form
+    <div
       data-testid="TodoForm"
       className="mb-4 flex w-full flex-row justify-between border-b border-slate-900 pb-2"
-      onSubmit={(e) => {
-        e.preventDefault();
-        mutate(content);
-      }}
     >
       <input
         type="text"
@@ -29,7 +19,12 @@ export function TodoForm() {
         value={content}
         onChange={(e) => setContent(e.target.value)}
       />
-      <button className="rounded-xl bg-green-400 px-4">create</button>
-    </form>
+      <button
+        onClick={() => formSubmission(content)}
+        className="rounded-xl bg-green-400 px-4"
+      >
+        create
+      </button>
+    </div>
   );
 }
