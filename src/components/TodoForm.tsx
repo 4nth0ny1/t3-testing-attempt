@@ -1,5 +1,3 @@
-import { api } from "../utils/api";
-
 type SubmitProps = {
   setContent: (content: string) => void;
   content: string;

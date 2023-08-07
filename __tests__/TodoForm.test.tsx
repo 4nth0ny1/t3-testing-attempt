@@ -5,9 +5,12 @@ import { TRPCWrapper } from "~/utils/wrappers/trpcwrapper";
 const func = jest.fn();
 
 const setup = () => {
-  render(<TodoForm />, {
-    wrapper: TRPCWrapper,
-  });
+  render(
+    <TodoForm setContent={func} content={"hello"} formSubmission={func} />,
+    {
+      wrapper: TRPCWrapper,
+    }
+  );
 };
 
 describe("TodoForm Component", () => {
@@ -15,5 +18,18 @@ describe("TodoForm Component", () => {
     setup();
     expect(screen.getByRole("textbox")).toBeInTheDocument();
     expect(screen.getByRole("button")).toBeInTheDocument();
+  });
+
+  it("createMutation - clicking createButton should do a callback", async () => {
+    setup();
+
+    const createButton = screen.getByRole("button");
+    expect(createButton).toBeInTheDocument();
+
+    await userEvent.click(createButton);
+
+    await waitFor(() => {
+      expect(func).toHaveBeenCalled();
+    });
   });
 });

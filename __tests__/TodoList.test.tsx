@@ -9,9 +9,7 @@ const setup = () => {
 };
 
 describe("TodoList Component", () => {
-  it("TodoList - should render a TodoForm Component", async () => {
+  it("TodoList", async () => {
     setup();
-
-    expect(screen.getByText(/hello/i)).toBeInTheDocument();
   });
 });

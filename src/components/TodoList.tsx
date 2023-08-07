@@ -17,7 +17,7 @@ export function TodoList() {
 
   return (
     <div data-testid="TodoList" className="w-1/2 p-10">
-      {todos.length ? (
+      {!isLoading ? (
         todos?.map((todo) => {
           return (
             <TodoItem
