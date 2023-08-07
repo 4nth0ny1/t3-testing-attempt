@@ -13,9 +13,11 @@ jest.mock("../src/hooks/useGetAllTodos", () => ({
   useGetAllTodos: jest.fn(),
 }));
 
+const mockedUseGetAllTodos = useGetAllTodos as jest.Mock;
+
 describe("TodoList Component", () => {
   it("TodoList - should load TodoList if isSuccess = true", async () => {
-    useGetAllTodos.mockImplementation(() => ({
+    mockedUseGetAllTodos.mockImplementation(() => ({
       isSuccess: true,
     }));
     setup();
@@ -23,12 +25,12 @@ describe("TodoList Component", () => {
     expect(todoList).toBeInTheDocument();
   });
 
-  it("TodoList - should show loading message if isLoading is true", async () => {
-    useGetAllTodos.mockImplementation(() => ({
+  it("TodoList - should show loading spinner if isLoading is true", async () => {
+    mockedUseGetAllTodos.mockImplementation(() => ({
       isLoading: true,
     }));
     setup();
-    const helpful = screen.getByText(/create your first todo/i);
-    expect(helpful).toBeInTheDocument();
+    const loader = screen.getByTestId("loader");
+    expect(loader).toBeInTheDocument();
   });
 });

@@ -1,6 +1,14 @@
 import { useGetAllTodos } from "~/hooks/useGetAllTodos";
 import { api } from "../utils/api";
 import { TodoItem } from "./TodoItem";
+import ClipLoader from "react-spinners/ClipLoader";
+import { CSSProperties } from "react";
+
+const override: CSSProperties = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "black",
+};
 
 export function TodoList() {
   const { data: todos, isLoading, isError } = useGetAllTodos();
@@ -28,9 +36,12 @@ export function TodoList() {
           );
         })
       ) : (
-        <div data-testid="helpful" className="py-4 text-center text-xl">
-          Create your first todo
-        </div>
+        <ClipLoader
+          cssOverride={override}
+          size={150}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
       )}
     </div>
   );
