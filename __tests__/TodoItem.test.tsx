@@ -4,8 +4,6 @@ import { TodoItem } from "../src/components/TodoItem";
 import { TRPCWrapper } from "~/utils/wrappers/trpcwrapper";
 const func = jest.fn();
 
-// test
-
 const setup = () => {
   render(
     <TodoItem id="1" done={false} content="mow the lawn" onDelete={func} />,
@@ -16,21 +14,14 @@ const setup = () => {
 };
 
 describe("TodoItem Component", () => {
-  it("checkbox - should render a checkbox", () => {
+  it("checkbox - should render a checkbox, content from props, and delete button", () => {
     setup();
     const checkbox = screen.getByTestId("doneCheckbox");
     expect(checkbox).toBeInTheDocument();
-  });
-
-  it("content - should render content from props", () => {
-    setup();
 
     const content = screen.getByText("mow the lawn");
     expect(content).toBeInTheDocument();
-  });
 
-  it("deleteButton - should render delete button", () => {
-    setup();
     const deleteButton = screen.getByTestId("deleteButton");
     expect(deleteButton).toBeInTheDocument();
   });
