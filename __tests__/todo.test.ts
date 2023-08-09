@@ -7,7 +7,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { appRouter, type AppRouter } from "~/server/api/root";
 import { createTRPCContext } from "~/server/api/trpc";
 import { mockDeep } from "jest-mock-extended";
-
+import { Session } from 'next-auth'
 
 
 describe("Todo Router", () => {
@@ -25,14 +25,15 @@ describe("Todo Router", () => {
       },
     ];
 
-    const ctx = await createTRPCContext({
-      session: {
-        user: { id: "123", userId: "123421423" },
-        expires: "1",
-      }, prisma: prismaMock,
+    const mockSession: Session = {
+      expires: new Date().toISOString(),
+      user: { id: "test-user-id", name: "Anthony"}
+    }
+
+    const caller = appRouter.createCaller({
+      session: mockSession,
+      prisma: prismaMock,
       });
-    
-    const caller = appRouter.createCaller(ctx);
 
     prismaMock.todo.findMany.mockResolvedValue(mockOutput);
       
